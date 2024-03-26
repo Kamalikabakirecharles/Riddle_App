@@ -1,0 +1,81 @@
+﻿@page
+@model riddles_WebApp.Pages.riddleModel
+@{
+}
+<title>Riddle | Signup</title>
+<link rel="stylesheet" href="css/style.css" />
+<!--fav-icon-->
+<link rel="shortcut icon" href="images/favicon.png" />
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+<section class="main">
+
+    <nav>
+        <a asp-page="/Index" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a asp-page="/Rates"><ion-icon name="browsers-outline"></ion-icon>Rates</a></li>
+            <li><a asp-page="/Vote"><ion-icon name="browsers-outline"></ion-icon>Vote</a></li>
+            <li><a asp-page="/Mark"><ion-icon name="browsers-outline"></ion-icon>Mark</a></li>
+            <li><a asp-page="/Dash"><ion-icon name="browsers-outline"></ion-icon>Home</a></li>
+            <li><a asp-page="/riddle" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;"><ion-icon name="browsers-outline"></ion-icon>Riddle</a></li>
+        </ul>
+    </nav>
+
+
+
+<div class="container">
+
+    @if (Model.message.Length > 1)
+    {
+            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <center> <p><strong>Hello!</strong> @Model.message</p></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show the modal using JavaScript when needed -->
+            <script>
+                $(document).ready(function () {
+                    $('#messageModal').modal('show');
+                });
+            </script>
+
+    }
+
+        <form method="post" class="normal">
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Example Riddle</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
+        </div>
+            <br />
+            <div class="form-group submit-btn">
+                <input type="submit" value="Post Riddle">
+            </div>
+    </form>
+
+</div>
+</section>
+<!--footer------------->
+<footer>
+    <p>Copyright (C) - 2023 | Developed By <a>Kamali Kabakire Charles </a> </p>
+</footer>

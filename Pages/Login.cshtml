@@ -1,0 +1,48 @@
+﻿@page
+@model riddles_WebApp.Pages.LoginModel
+@{
+}
+<title>Riddle | Login</title>
+<link rel="stylesheet" href="css/style.css" />
+<!--fav-icon-->
+<link rel="shortcut icon" href="images/favicon.png" />
+
+<section class="main">
+
+    <nav>
+        <a asp-page="/Index" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a asp-page="/Index" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;">Home</a></li>
+        </ul>
+    </nav>
+
+    <form method="post" class="normal">
+        <h2>Login</h2>
+        <div class="form-group email">
+            <label for="email">Email Address</label>
+            <input type="text" id="email" placeholder="Enter your email address" name="email">
+        </div>
+        <div class="form-group password">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" name="password">
+        </div>
+        <br />
+        <div class="form-group submit-btn">
+            <input type="submit" value="Login">
+        </div>
+        <div>
+            <a asp-page="/Signup" class="info" style="color: #fff;">Don't Have an Account?</a>
+        </div>
+    </form>
+
+</section>
+<!--footer------------->
+<footer>
+    <p>Copyright (C) - 2023 | Developed By <a>Kamali Kabakire Charles </a> </p>
+</footer>

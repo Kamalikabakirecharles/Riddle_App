@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<title>Riddle | Login</title>
+<link rel="stylesheet" href="~/css/style.css" />
+<!--fav-icon-->
+<link rel="shortcut icon" href="~/images/favicon.png" />
+<section class="main" style="background-image: url(images/hero-bg.png);">
+    @if (Model.message.Length > 1)
+    {
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <center> <p><strong>Hello!</strong> @Model.message</p></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show the modal using JavaScript when needed -->
+        <script>
+            $(document).ready(function () {
+                $('#messageModal').modal('show');
+            });
+        </script>
+    }@if (Model.message.Length > 1)
+    {
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <center> <p><strong>Hello!</strong> @Model.message</p></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show the modal using JavaScript when needed -->
+        <script>
+            $(document).ready(function () {
+                $('#messageModal').modal('show');
+            });
+        </script>
+    }
+    <nav>
+        <a href="#" class="logo">
+            <img src="~/images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a asp-page="/Login" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;">Login</a></li>
+        </ul>
+    </nav>
+    <!--main-content-->
+    <div class="home-content">
+
+        <!--text-->
+        <div class="home-text">
+
+
+            <h1 style="color: white;">RIDDLES WITH ME!</h1>
+            <p style="color: white;">Thousands of riddles (with answers) for kids and adults to tell, share, and rate. Plus a riddle of the day, every day!</p>
+            <!--login-btn-->
+            <a asp-page="/Login" class="main-login" style="border-radius: 5px;">Let's Go</a>
+        </div>
+        <!--img-->
+        <div class="home-img" style="width: 500px;">
+            <img src="~/images/pngegg.png" width="500px" style="text-shadow: 20px 22px;" />
+        </div>
+
+    </div>
+</section>
+<!--footer------------->
+<footer>
+    <p>Copyright (C) - 2023 | Developed By <a>Kamali Kabakire Charles </a> </p>
+</footer>
+
+

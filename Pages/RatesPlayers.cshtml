@@ -1,0 +1,148 @@
+﻿@page
+@model riddles_WebApp.Pages.RatesPlayersModel
+@{
+}
+<title>Riddle | Signup</title>
+<link rel="stylesheet" href="css/style.css" />
+<!--fav-icon-->
+<link rel="shortcut icon" href="images/favicon.png" />
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+
+<section class="main">
+
+    <nav>
+        <a asp-page="/Index" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <ul class="menu" style="border-radius: 5px;">
+                <li><a asp-page="/RatesPlayers"><ion-icon name="browsers-outline"></ion-icon>Rates</a></li>
+                <li><a asp-page="/VotePlayers"><ion-icon name="browsers-outline"></ion-icon>Vote</a></li>
+                <li><a asp-page="/Players" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;"><ion-icon name="browsers-outline"></ion-icon>Home</a></li>
+            </ul>
+    </nav>
+
+
+    <div class="container">
+        @if (Model.message.Length > 1)
+        {
+            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <center> <p><strong>Hello!</strong> @Model.message</p></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show the modal using JavaScript when needed -->
+            <script>
+                $(document).ready(function () {
+                    $('#messageModal').modal('show');
+                });
+            </script>
+        }
+        
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card text-center">
+            <div class="card-header">
+                <ion-icon name="trophy-outline" style="color:#FFD700;"></ion-icon>  High Agree Votes <ion-icon name="trophy-outline" style="color:#FFD700;"></ion-icon>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.HighestAgreeRiddle?.riddle_text</h5>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <ion-icon name="thumbs-up-outline" style="color:green;"></ion-icon>  @Model.HighestAgreeRiddle?.agree_count
+            </div>
+        </div>
+            
+        </div>
+        <br />
+              
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card text-center">
+            <div class="card-header">
+                <ion-icon name="golf-outline" style="color:red;"></ion-icon>  High Disagree Votes <ion-icon name="golf-outline" style="color:red;"></ion-icon>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.HighestDisagreeRiddle?.riddle_text</h5>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <ion-icon name="thumbs-down-outline" style="color:red;"></ion-icon> @Model.HighestDisagreeRiddle?.disagree_count
+            </div>
+        </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+        <div>
+                    
+            <h3>Your Correct Answers:</h3>
+            <ul>
+                @foreach (var answer in Model.UserCorrectAnswers)
+                {
+                    var associatedRiddle = Model.RiddleList.FirstOrDefault(r => r.riddle_id == answer.riddle_id);
+                    if (associatedRiddle != null)
+                    {
+                                <li class="divd">
+                            <p><strong>Riddle:</strong> @associatedRiddle.riddle_text</p>
+                            <p><strong>Your Answer:</strong> @answer.answer_text<ion-icon name="checkmark-outline" style="color:green;"></ion-icon></p>
+                        </li>
+                    }
+                }
+            </ul>
+                    <div class="divd">
+                    <h3>Overall Totals:</h3>
+                    <p>Total Correct Answers: @Model.UserCorrectAnswers.Count / @Model.RiddleList.Count</p>
+                    </div>
+        </div>
+        </div>  
+        <br />
+                <div class="col-sm-6 mb-3 mb-sm-0">
+        <div>
+                    
+            <h3>Your Worng Answers:</h3>
+            <ul>
+                @foreach (var answer in Model.userWrongAnswers)
+                {
+                    var associatedRiddle = Model.RiddleList.FirstOrDefault(r => r.riddle_id == answer.riddle_id);
+                    if (associatedRiddle != null)
+                    {
+                                <li class="divd">
+                            <p><strong>Riddle:</strong> @associatedRiddle.riddle_text</p>
+                            <p><strong>Your Answer:</strong> @answer.answer_text <ion-icon name="close-outline" style="color:red;"></ion-icon></p>
+                        </li>
+                    }
+                }
+            </ul>
+                    <div class="divd">
+                    <h3>Overall Totals:</h3>
+                    <p>Total Incorrect Answers: @Model.userWrongAnswers.Count / @Model.RiddleList.Count</p>
+                    </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    
+</section>
+
+
+

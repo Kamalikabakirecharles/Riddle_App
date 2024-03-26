@@ -1,0 +1,136 @@
+﻿@page
+@model riddles_WebApp.Pages.AnswerPlayersModel
+@{
+}
+<title>Riddle | Signup</title>
+<link rel="stylesheet" href="css/style.css" />
+<!--fav-icon-->
+<link rel="shortcut icon" href="images/favicon.png" />
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<section class="main">
+
+    <nav>
+        <a asp-page="/Index" class="logo">
+            <img src="images/logo.png" height="40px" />
+        </a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <ul class="menu" style="border-radius: 5px;">
+            <li><a asp-page="/Rates"><ion-icon name="browsers-outline"></ion-icon>Rates</a></li>
+            <li><a asp-page="/riddle"><ion-icon name="browsers-outline"></ion-icon>Riddle</a></li>
+            <li><a asp-page="/Mark"><ion-icon name="browsers-outline"></ion-icon>Mark</a></li>
+            <li><a asp-page="/Dash"><ion-icon name="browsers-outline"></ion-icon>Home</a></li>
+            <li><a asp-page="/Vote" class="active" onclick="document.getElementById('id01').style.display='block'" style="width:auto; border-radius: 5px; cursor: pointer;"><ion-icon name="browsers-outline"></ion-icon>Vote</a></li>
+        </ul>
+    </nav>
+
+
+
+<div class="container">
+    @if (Model.message.Length > 1)
+    {
+            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <center> <p><strong>Hello!</strong> @Model.message</p></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show the modal using JavaScript when needed -->
+            <script>
+                $(document).ready(function () {
+                    $('#messageModal').modal('show');
+                });
+            </script>
+    }
+
+    <h3>
+        Riddles
+        <small class="text-body-secondary">Your Posts</small>
+    </h3>
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var riddle in Model.RiddleList)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="@("heading" + riddle.riddle_id)">
+
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapse" + riddle.riddle_id)" aria-expanded="false" aria-controls="@("collapse" + riddle.riddle_id)">
+                            @riddle.riddle_text
+                    </button>
+                        
+                </h2>
+                <div id="@("collapse" + riddle.riddle_id)" class="accordion-collapse collapse" aria-labelledby="@("heading" + riddle.riddle_id)" data-bs-parent="#accordionFlushExample">
+                        <div><code style="color:black;">Posted At: @riddle.created_at</code></div>
+
+                    <br />
+
+                    <!-- Display answers under the current riddle -->
+                    <div class="answers-section">
+                        @foreach (var answer in Model.AnswersList.Where(a => a.riddle_id == riddle.riddle_id))
+                        {
+                            var voteModel = Model.VotesList.FirstOrDefault(v => v.answer_id == answer.answer_id);
+                            <div class="answer-item">
+                                <div class="divd">
+                               
+                                <div>@answer.answer_text</div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                    @if (voteModel != null)
+                                    {
+                                        <form method="post">
+                                            <input type="hidden" name="answer_id" value="@answer.answer_id" />
+                                            <button type="submit" class="btn btn-outline-primary" name="vote_type" value="Agree">
+                                                <ion-icon name="thumbs-up-outline"></ion-icon> @voteModel.AgreeCount
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-danger" name="vote_type" value="Disagree">
+                                                <ion-icon name="thumbs-down-outline"></ion-icon> @voteModel.DisagreeCount
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="post">
+                                            <input type="hidden" name="answer_id" value="@answer.answer_id" />
+                                            <!-- Display 0 if voting data is not available -->
+                                            <button type="submit" class="btn btn-outline-primary" name="vote_type" value="Agree">
+                                                <ion-icon name="thumbs-up-outline"></ion-icon> 0
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-danger" name="vote_type" value="Disagree">
+                                                <ion-icon name="thumbs-down-outline"></ion-icon> 0
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+
+
+                                        <div><code style="color:black;">Posted At: @answer.created_at</code></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <br />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+</section>
+<!--footer------------->
+<footer>
+    <p>Copyright (C) - 2023 | Developed By <a>Kamali Kabakire Charles </a> </p>
+</footer>
